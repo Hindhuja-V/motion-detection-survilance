@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Motion Detection Surveillance</title>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+    <link rel='stylesheet' href='https://code.getmdl.io/1.2.1/material.indigo-pink.min.css'>
+    <script defer src='https://code.getmdl.io/1.2.1/material.min.js'></script>
+    <link rel='stylesheet' href='https://ankur198.github.io/MotionDetectionSurvilance/styles/index.css'>
+    <link rel='stylesheet' href='https://ankur198.github.io/MotionDetectionSurvilance/styles/style.css'>
+    <link rel='stylesheet' href='styles/style.css'>
+</head>
+
+<body>
+    <header>
+        <h1>Motion Detection Surveillance</h1>
+    </header>
+    <main>
+        <p class='is-invisible'> <button disabled
+                class='js-push-btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect'> Enable
+                Notification </button> </p>
+        <section class='subscription-details js-subscription-details is-invisible'>
+            <p></p>
+            <pre><code class='js-subscription-json'></code></pre>
+        </section>
+    </main>
+    <section class='myContent'>
+        <div class='controls'> <input type='button' value='Subscribe'
+                class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect' onclick='SubToGithub()'>
+            <form onsubmit='return false'>
+                <div> <label class='mdl-switch mdl-js-switch mdl-js-ripple-effect' for='notificationEnable'> <input
+                            type='checkbox' id='notificationEnable' class='mdl-switch__input'
+                            onchange='let val=checked?1:0; sendData("/?NotificationEnable="+ val)'> <span
+                            class='mdl-switch__label'>Enable</span> </label> </div>
+                <div> <label for='NotificationAt'> Notification At <input class='mdl-slider mdl-js-slider' type='range'
+                            id='NotificationAt' min='100' max='1000' value='100'
+                            onchange='sendData("/?NotificationAt="+value)' tabindex='0'> </label> </div>
+                <div> <label for='Noise'>Noise</label> <input type='range' name='Noise' min='0' max='200' id='Noise'
+                        onchange='sendData("/?Noise="+value)' class='mdl-slider mdl-js-slider'> </div>
+                <div> <label for='Multiplier'>Multiplier</label> <input type='range' name='Multiplier' min='100'
+                        max='5000' id='Multiplier' onchange='sendData("/?Multiplier="+value)'
+                        class='mdl-slider mdl-js-slider'> </div>
+            </form>
+            <div id='buttons'> <input type='button' value='Start Image' onclick='startPrev()'
+                    class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect'> <input type='button'
+                    value='Stop Image' onclick='stopPrev()'
+                    class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect'>
+                <div> <label>Ip</label> <input type='text' id='ip' onchange='url=value'
+                        value='http://192.168.1.104:8081' class='mdl-textfield__input'> </div>
+                <p id='status'>Preview Stopped</p>
+            </div>
+        </div>
+        <div class='image'><img src='' id='img' alt=''></div>
+    </section>
+    <script src='https://ankur198.github.io/MotionDetectionSurvilance/scripts/main.js'></script>
+    <script src='https://code.getmdl.io/1.2.1/material.min.js'></script>
+    <script>
+        setIpFromHost();
+    </script>
+</body>
+
+</html>

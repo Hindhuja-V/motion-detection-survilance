@@ -1,0 +1,38 @@
+section {
+  display: -ms-grid;
+  display: grid;
+  margin: 20px;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: 'controls image';
+}
+
+.controls {
+  grid-area: 'controls';
+}
+
+.controls * {
+  margin: 15px;
+}
+
+.image {
+  grid-area: 'image';
+  width: 100%;
+}
+
+.image img {
+  width: 100%;
+}
+
+.mdl-slider__container * {
+  margin: 0;
+}
+
+@media only screen and (max-width: 1000px) {
+  section {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas: 'controls' 'image';
+  }
+}
+/*# sourceMappingURL=style.css.map */

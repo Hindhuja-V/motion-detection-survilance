@@ -1,0 +1,95 @@
+﻿<Page
+    x:Class="MotionDetectionSurvilance.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MotionDetectionSurvilance"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:telerikChart="using:Telerik.UI.Xaml.Controls.Chart"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="301"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Margin="20,20,20,20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                    <Button Name="btnCredentials" Content="Email">
+                        <Button.Flyout>
+                            <Flyout>
+                                <StackPanel>
+                                    <TextBox Name="subEmail1" PlaceholderText="Email 1" Margin="5"/>
+                                    <TextBox Name="subEmail2" PlaceholderText="Email 2" Margin="5"/>
+                                    <TextBox Name="subEmail3" PlaceholderText="Email 3" Margin="5"/>
+                                    <TextBox Name="subEmail4" PlaceholderText="Email 4" Margin="5"/>
+                                    <Button Content="Submit" Click="UpdateEmailSubs" Margin="5"/>
+                                </StackPanel>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                    <Button Name="BtnCapture" Content="Start Monitoring" Click="BtnCapture_Click" Margin="10" IsEnabled="False"/>
+                    <Button Name="BtnReset" Content="Reset Notification" Click="BtnReset_Click"/>
+                </StackPanel>
+
+                <ListView Name="CamerasList" ItemsSource="{x:Bind Camera.Cameras}" DoubleTapped="CamerasList_DoubleTapped" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="local:CameraInformation">
+                            <TextBlock Text="{x:Bind deviceInformation.Name}" Margin="10"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Grid Name="NotificationControl">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Name="NotificationEnable" Content="Enable" Width="19" HorizontalAlignment="Center" Margin="10 0 0 0" />
+                    <Slider Grid.Column="1" Name="NotificationAt" Minimum="100" Maximum="1000" Margin="10" Header="Notifiaction At" StepFrequency="5" Width="auto"/>
+                </Grid>
+
+                <Slider Name="Noise" Minimum="0" Maximum="200" Value="{x:Bind threshold,Mode=TwoWay}" Margin="10" Header="De-noise" StepFrequency="5" />
+
+                <Slider Name="Multiplier" Header="Multiplier" Minimum="100" Maximum="5000" StepFrequency="100" Value="{x:Bind smooth,Mode=TwoWay}" Margin="10"/>
+
+            </StackPanel>
+
+            <telerikChart:RadCartesianChart Grid.Row="1" Name="MotionChart">
+                <telerikChart:RadCartesianChart.HorizontalAxis>
+                    <telerikChart:CategoricalAxis/>
+                </telerikChart:RadCartesianChart.HorizontalAxis>
+                <telerikChart:RadCartesianChart.VerticalAxis>
+                    <telerikChart:LinearAxis/>
+                </telerikChart:RadCartesianChart.VerticalAxis>
+                <telerikChart:LineSeries ItemsSource="{Binding}" 
+                               CombineMode="Stack"/>
+                <!--<telerikChart:LineSeries ItemsSource="{Binding Data2}" 
+                               CombineMode="Stack"/>-->
+
+            </telerikChart:RadCartesianChart>
+
+            <TextBlock Grid.Row="2" Name="Status" Text="Hello" HorizontalAlignment="Center"/>
+        </Grid>
+
+        <Grid Grid.Column="1" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <CaptureElement Name="PreviewControl" Stretch="Uniform"/>
+            <Image Grid.Row="1" Name="ImgPreview"/>
+        </Grid>
+
+
+    </Grid>
+</Page>

@@ -1,0 +1,43 @@
+section {
+    display: grid;
+    //justify-content: center;
+    margin: 20px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        'controls image';
+}
+
+.controls {
+    grid-area: 'controls';
+
+    * {
+        margin: 15px;
+    }
+}
+
+.image {
+    grid-area: 'image';
+    width: 100%;
+
+    img {
+        width: 100%;
+    }
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.mdl-slider__container * {
+    margin: 0;
+}
+
+@media only screen and (max-width: 1000px) {
+    section {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            'controls'
+            'image';
+    }
+}
